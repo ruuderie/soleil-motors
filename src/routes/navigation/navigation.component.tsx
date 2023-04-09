@@ -10,7 +10,8 @@ const Navigation = () => {
                 <SunLogo className="icon" />
             </Link>
             <div className="navbar-end ">
-                <Link className="navbar-item" to="/Shop">Shop</Link>
+            <Link className="navbar-item" to="/Shop">Shop</Link>
+            <Link className="navbar-item" to="/sign-in">Sign In</Link>
             </div>
         </nav>
         <Outlet />
