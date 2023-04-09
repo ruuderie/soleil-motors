@@ -1,0 +1,45 @@
+
+html {
+  height: 100%;
+  body {
+    margin: 0;
+    font-family: 'Open Sans Condensed', sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+  #root {
+    //max-width: 1280px;
+    margin: 0 auto;
+    padding: 2rem;
+    text-align: center;
+}
+}
+
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+.brands-container {
+    min-width: 30%;
+    height: 240px;
+    flex: 1 1 auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid black;
+    margin: 0 7.5px 15px;
+    overflow: hidden;
+  
+  
+    .brand-container {
+        background-color: rgb(47, 158, 127);
+        padding: 20px;
+  
+        .brand-body-container {
+            background-color: tan;
+            padding: 10px;
+        }
+    }
+  }
+  
