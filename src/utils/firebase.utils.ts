@@ -11,6 +11,8 @@ import { getAnalytics } from "firebase/analytics";
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
+import {getFirestore,doc,getDoc, setDoc, collection, getDocs, query, where, orderBy, limit, addDoc, updateDoc, deleteDoc} from 'firebase/firestore';
+
 // Your web app's Firebase configuration
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
@@ -26,6 +28,7 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const analytics = getAnalytics(app);
 const auth = getAuth();
+const db = getFirestore();
 
 export const signInWithGoogle = async () => {
   const provider = new GoogleAuthProvider();
@@ -43,7 +46,7 @@ export const signInWithGoogle = async () => {
 
 export const SendSignInLinkToEmail = (email: string) => {
     return sendEmailLink(auth, email, {
-      url: "http://localhost:3000/confirm",
+      url: "http://localhost:5173/confirm",
       handleCodeInApp: true,
     }).then(() => {
       return true;
@@ -72,3 +75,26 @@ export const SignOut = async () => {
       console.error(error);
     }
   };
+
+ export const CreateUserDocument = async (userAuth: any, additionalData: any) => {
+    if (!userAuth) return;
+    const userRef = doc(db, "users", userAuth.uid);
+    console.log(userRef);
+    const snapShot = await getDoc(userRef);
+
+    if (!snapShot.exists()) {
+      const { displayName, email } = userAuth;
+      const createdAt = new Date();
+      try {
+        await setDoc(userRef, {
+          displayName,
+          email,
+          createdAt,
+          ...additionalData,
+        });
+      } catch (error) {
+        console.log("error creating user", error.message);
+      }
+    }
+    return userRef;
+  }
